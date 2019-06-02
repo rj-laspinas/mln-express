@@ -5,6 +5,7 @@
 	<div class="row">
 	{{-- VEHICLE INVENTORY --}}
 		<div class="col-sm-12 col-lg-10">
+            {{-- VEHICLE ACTIVE FLEET --}}
 			<div class="accordion" id="transactionSummary_accordion">
                 <div class="align-middle" id="display_transactionummary">
                     <button class="btn btn-success btn-lg btn-block" type="button" data-toggle="collapse" data-target="#collapsetransactionsummary" aria-expanded="true" aria-controls="collapsetransactionsummary">
@@ -85,6 +86,7 @@
                 </div>
             </div>
             <br>
+            {{-- BROKEN VEHICLES --}}
             <div class="accordion" id="transactionSummary2_accordion">
                 <div class="align-middle" id="display_transactionummary2">
                     <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="collapse" data-target="#collapsetransactionsummary2" aria-expanded="true" aria-controls="collapsetransactionsummary2">
@@ -182,10 +184,7 @@
                 </li>
 
             </ul>
-
 		</div>
-
-
 </div>
 
 {{-- MODALS --}}
@@ -202,12 +201,12 @@
                         </button>
                   </div>
                   <div class="modal-body mx-3">
-                        <form method="POST" action="/vehicles" enctype="multipart/form-data">
+                        <form method="POST" action="/trips" enctype="multipart/form-data">
                         @csrf
                             <div class="md-form my-2 mx-3">
-                                <label for="category">Service Class</label>
-                                <select name="category" >
-                                    <option value="" disabled selected>Select Class</option>
+                                <label for="vehicleId">Vehicle/label>
+                                <select name="vehicleId" class="form-control validate">
+                                    <option value="" disabled selected>Select Vehicles</option>
                                     @foreach($vehicles as $vehicle)
                                         <option class="" value="{{$vehicle->_id}}" >
                                             {{$vehicle->plate}}
@@ -337,6 +336,39 @@
         </div>
       </div>
     </div>
+
+
+
+
+
+
+{{-- 
+    /*function openDeleteModal(id, name){
+        $("#taskName").html("Do you want to delete task " + name +"?");
+        $("#deleteForm").attr("action", "/task/"+id);
+        $("#deleteModal").modal("show");
+    }*/
+
+    /*function openEditModal(id, name){
+        $("#taskToReplace").html("Do you want to edit task<strong> " + name + "</strong> with?");
+        $("#editForm").attr("action", "/task/"+id);
+        $("#editModal").modal("show");
+    }*/
+
+/*    let editBtns = document.querySelectorAll('.editBtns');
+    let delBtns = document.querySelectorAll('.delBtns');
+
+    editBtns.forEach(function(editBtn){
+        editBtn.addEventListener("click", function(e){
+            let id = e.target.getAttribute("data-id");
+            let plate = e.target.getAttribute("data-name");
+            taskToReplace.innerHTML = "Do you want to edit task <strong>" + taskName +"</strong> with?";
+            editForm.setAttribute("action", "/task/"+taskId);
+        })
+    })*/
+ --}}
+
+</script>
 
 
 @endsection
