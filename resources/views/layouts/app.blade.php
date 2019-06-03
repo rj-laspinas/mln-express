@@ -26,11 +26,97 @@
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 </head>
 <body>
     
-    <div id="app">
+<div id="app">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-transparent">
+            <a class="navbar-brand" href="/">MLN Express</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+                @if(Session::get("user") !== null)
+                    @if(Session::get("user")->isAdmin !== true)
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/vehicles">The Fleet</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/trips">Trips</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                 
+                                    <a class="dropdown-item" href="/">Administrator Options</a>
+                                    <a class="dropdown-item" href="/logout" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+                            <form id="logout-form" action="/logout" method="GET" style="display: none;">
+                                @csrf
+                            </form>
+                        </ul>
+                    @else
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">Book Trip</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/bookings">Manage Bookings</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                 
+                                    <a class="dropdown-item" href="/">My Account Info</a>
+                                    <a class="dropdown-item" href="/logout" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+                            <form id="logout-form" action="/logout" method="GET" style="display: none;">
+                                @csrf
+                            </form>
+                        </ul>
+                    @endif
+                @else
+                    <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">The Company</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">Chartered Bus</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">Premium Services</a>
+                            </li>
+                           <li class="nav-item">
+                                <a class="nav-link" href="/login">Manage Bookings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/register">Register</a>
+                            </li>
+                @endif
+
+
+
+            </div>
+        </nav>
 
         <main class="py-4">
             @yield('content')

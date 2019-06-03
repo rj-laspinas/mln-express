@@ -73,7 +73,7 @@ class AuthController extends Controller
         if($isAdmin == true) {
             return redirect("/vehicles");
         } else {
-            return redirect("/bookings");
+            return redirect("/");
         }
 
     }

@@ -5,9 +5,63 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Session;
+use Collection;
 
 class TripController extends Controller
 {
+    public function home()
+    {
+        $client = new Client(["base_uri" => "http://localhost:3000"]);
+
+        $response = $client->request("GET", "/guest/trips", [
+            "headers" => ["Authorization" => Session::get("token")],
+        ]);
+
+        $result = json_decode($response->getBody());
+        
+        $vehicles = $result->vehicles;
+        $trips = $result->trips;
+        $categories = $result->categories;
+
+        return view("index", compact('vehicles', 'trips', 'categories'));
+    }
+    
+
+    public function search(Request $request)
+    {   
+
+        $rules = array(
+            "origin" => "required",
+            "destination" => "required",
+            "startDate" => "required",
+            "quantity" => "required|numeric",
+        );
+
+        $this->validate($request, $rules);
+        $client = new Client(["base_uri" => "http://localhost:3000"]);
+
+        $response = $client->request("POST", "/guest/trips/search", [
+            "headers" => ["Authorization" => Session::get("token")],
+            "json" => [
+                "origin" =>$request->origin,
+                "destination" => $request->destination,
+                "startDate" => $request->startDate,
+                "quantity" => $request->endDate
+            ]
+        ]);
+
+        $result = json_decode($response->getBody());
+
+        $trips = $result->trips;
+
+        $quantity = $request->quantity;
+        $startDate = $request->startDate;
+        $origin = $request->origin;
+        $destination = $request->destination;
+
+        return view("nonAdmin.trips_index", compact('trips', 'quantity', 'startDate', 'origin', 'destination'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,6 +74,7 @@ class TripController extends Controller
         $response = $client->request("GET", "/admin/trips", [
             "headers" => ["Authorization" => Session::get("token")],
         ]);
+
 
         $result = json_decode($response->getBody());
         
@@ -58,7 +113,7 @@ class TripController extends Controller
             "endDate" => "required",
         );
 
-        dd($request);
+        // dd($request);
         $this->validate($request, $rules);
 
         $client = new Client(["base_uri" => "http://localhost:3000"]);
@@ -96,12 +151,10 @@ class TripController extends Controller
 
         $result = json_decode($response->getBody());
 
-        // dd($result);
         $vehicle = $result->vehicle;
         $trip = $result->trip;
         $vehicles= $result->fleet;
 
-        // dd($trip);
 
         return view("admin.trip_edit", compact('vehicles','vehicle', 'trip'));    
     }
@@ -135,7 +188,6 @@ class TripController extends Controller
             "endDate" => "required",
         );
 
-        dd($request);
         $this->validate($request, $rules);
 
         $client = new Client(["base_uri" => "http://localhost:3000"]);
@@ -168,3 +220,5 @@ class TripController extends Controller
         //
     }
 }
+
+

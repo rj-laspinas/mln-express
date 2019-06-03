@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {return view('index');
+// });
+
+Route::get('/', "TripController@home");
 
 Route::get("/register", "AuthController@registerForm");
 
@@ -36,14 +37,20 @@ Route::post("/vehicle/update/{id}","VehicleController@update");
 
 Route::delete("/vehicles/service/{id}","VehicleController@service");
 
-Route::get("/vehicles/search","VehicleController@search");
+Route::post("/vehicles/search","VehicleController@search");
 
 Route::resource("trips","TripController");
 
 // USR ROUTES
-Route::get("/trip/search", "TripController@search");
+Route::post("/trips/search", "TripController@search");
 Route::get("/trip","TripController@user");
 
-Route::resource("bookings","BookingController");
+
+Route::post("/bookings/summary","BookingController@summary");
+Route::post("/bookings","BookingController@store");
+Route::get("/bookings/ticket","BookingController@ticket");
+
+
+// Route::resource("bookings","BookingController");
 Route::get("/booking/search", "BookingController@search");
 

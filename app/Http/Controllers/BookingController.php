@@ -8,6 +8,27 @@ use Session;
 
 class BookingController extends Controller
 {
+    public function summary(Request $request)
+    {
+        $tripId = $request->tripId;
+        $quantity = $request->quantity;
+        $price = $request->price;
+        $amount = $quantity * $price;
+
+        $client = new Client(["base_uri" => "http://localhost:3000"]);
+
+        $response = $client->request("GET", "/guest/trips/".$tripId, [
+            "headers" => ["Authorization" => Session::get("token")],
+        ]);
+
+        $result = json_decode($response->getBody());
+
+        // dd($result);
+        $vehicle = $result->vehicle;
+        $trip = $result->trip;
+
+        return view('nonAdmin.booking_summary', compact('tripId', 'quantity', 'price', 'amount', 'vehicle', 'trip'));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,10 +56,37 @@ class BookingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
+    {   
+        // dd($request);
 
+         $rules = array(
+            "quantity" => "required",
+            "price" => "required|numeric",
+            "tripId" => "required",
+        );
+
+        $this->validate($request, $rules);
+
+        $client = new Client(["base_uri" => "http://localhost:3000"]);
+
+        $response = $client->request("POST", "/nonAdmin/bookings", [
+            "headers" => ["Authorization" => Session::get("token")],
+            "json" => [
+                "quantity" => $request->quantity,
+                "price" => $request->price,
+                "tripId" =>$request->tripId,
+            ]
+        ]);
+
+        $result = json_decode($response->getBody());
+        
+
+        dd($result);
+        return view("ticket",compact('trip'));
+    }
+    public function ticket()
+    {
+        return view('ticket', compact());    }
     /**
      * Display the specified resource.
      *
