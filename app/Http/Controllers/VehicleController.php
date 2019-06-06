@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Session;
+use GuzzleHttp\Exception\BadResponseException;
 
 class VehicleController extends Controller
 {
@@ -15,7 +16,7 @@ class VehicleController extends Controller
      */
     public function index()
     {   
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("GET", "/admin/vehicles", [
             "headers" => ["Authorization" => Session::get("token")],
@@ -64,7 +65,7 @@ class VehicleController extends Controller
         // $image->move($destination, $image_name);
         // $img_path = $destination.$image_name;
 
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("POST", "/admin/vehicles", [
             "headers" => ["Authorization" => Session::get("token")],
@@ -102,7 +103,7 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("GET", "/admin/vehicles/".$id, [
             "headers" => ["Authorization" => Session::get("token")],
@@ -145,7 +146,7 @@ class VehicleController extends Controller
         // $image->move($destination, $image_name);
         // $img_path = $destination.$image_name;
 
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("PUT", "/admin/vehicles/".$id, [
             "headers" => ["Authorization" => Session::get("token")],
@@ -187,7 +188,7 @@ class VehicleController extends Controller
         public function service($id)
     {
         // dd($id);
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("DELETE", "/admin/vehicles/status/".$id, [
             "headers" => ["Authorization" => Session::get("token")],

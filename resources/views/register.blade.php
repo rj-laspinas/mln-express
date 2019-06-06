@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="col-lg-6 col-md-8 col-sm-12">
+		<div class="col-lg-6 col-md-8 col-sm-12 white-background modal-content">
 			<h1>User Registration Form</h1>
 			<form  class="form-group" method="POST" action="/register">
 				@csrf

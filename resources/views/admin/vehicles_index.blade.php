@@ -288,19 +288,13 @@
                             </div>
                             <div class="md-form my-2"> 
                                 <label for="plate">ID/Plate Number</label>
-                                 <input rows="4" name="plate" id="plate" class="form-control"></input>
-                            </div>
+                                 <input rows="4" name="plate" id="plate" class="form-control">                            
+                             </div>
 
                             <div class="md-form my-2">
                                 <label for="seatingCap">Seating Capacity</label>
-                                <input type="number" name="seatingCap" id="seatingCap" step=0.01 min=0 class="form-control">
-                            </div>
-                        
-                        {{-- 
-                        <div class="form-control-file">
-                            <label for="image">Upload Image of Equipment</label>
-                            <input type="file" name="image" id="image" class="">
-                        </div> --}}
+                                <input type="number" name="seatingCap" id="seatingCap" step=0.01 min=0 class="form-control"><
+                            </div>                            
                             <div class="modal-footer d-flex justify-content-center">
                                 <button type="submit" class="btn btn-success">Add Vehicle to Fleet</button>
                             </div>
@@ -336,39 +330,6 @@
         </div>
       </div>
     </div>
-
-
-
-
-
-
-{{-- 
-    /*function openDeleteModal(id, name){
-        $("#taskName").html("Do you want to delete task " + name +"?");
-        $("#deleteForm").attr("action", "/task/"+id);
-        $("#deleteModal").modal("show");
-    }*/
-
-    /*function openEditModal(id, name){
-        $("#taskToReplace").html("Do you want to edit task<strong> " + name + "</strong> with?");
-        $("#editForm").attr("action", "/task/"+id);
-        $("#editModal").modal("show");
-    }*/
-
-/*    let editBtns = document.querySelectorAll('.editBtns');
-    let delBtns = document.querySelectorAll('.delBtns');
-
-    editBtns.forEach(function(editBtn){
-        editBtn.addEventListener("click", function(e){
-            let id = e.target.getAttribute("data-id");
-            let plate = e.target.getAttribute("data-name");
-            taskToReplace.innerHTML = "Do you want to edit task <strong>" + taskName +"</strong> with?";
-            editForm.setAttribute("action", "/task/"+taskId);
-        })
-    })*/
- --}}
-
-</script>
 
 
 @endsection

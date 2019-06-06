@@ -11,7 +11,7 @@ class TripController extends Controller
 {
     public function home()
     {
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com/"]);
 
         $response = $client->request("GET", "/guest/trips", [
             "headers" => ["Authorization" => Session::get("token")],
@@ -38,7 +38,7 @@ class TripController extends Controller
         );
 
         $this->validate($request, $rules);
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("POST", "/guest/trips/search", [
             "headers" => ["Authorization" => Session::get("token")],
@@ -52,6 +52,7 @@ class TripController extends Controller
 
         $result = json_decode($response->getBody());
 
+        // dd($result);
         $trips = $result->trips;
 
         $quantity = $request->quantity;
@@ -69,7 +70,7 @@ class TripController extends Controller
      */
     public function index()
     {
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("GET", "/admin/trips", [
             "headers" => ["Authorization" => Session::get("token")],
@@ -116,7 +117,7 @@ class TripController extends Controller
         // dd($request);
         $this->validate($request, $rules);
 
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("POST", "/admin/trips", [
             "headers" => ["Authorization" => Session::get("token")],
@@ -143,7 +144,7 @@ class TripController extends Controller
      */
     public function show($id)
     {
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("GET", "/admin/trips/".$id, [
             "headers" => ["Authorization" => Session::get("token")],
@@ -190,7 +191,7 @@ class TripController extends Controller
 
         $this->validate($request, $rules);
 
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("PUT", "/admin/trips", [
             "headers" => ["Authorization" => Session::get("token")],

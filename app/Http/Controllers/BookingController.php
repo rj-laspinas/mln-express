@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Session;
@@ -15,7 +15,7 @@ class BookingController extends Controller
         $price = $request->price;
         $amount = $quantity * $price;
 
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("GET", "/guest/trips/".$tripId, [
             "headers" => ["Authorization" => Session::get("token")],
@@ -36,7 +36,20 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
+
+        $response = $client->request("GET", "/nonAdmin/bookings", [
+            "headers" => ["Authorization" => Session::get("token")],
+        ]);
+
+
+        $result = json_decode($response->getBody());
+        // dd($result);
+        $vehicles = $result->vehicles;
+        $trips = $result->trips;
+        $bookings = $result->bookings;
+
+        return view("nonAdmin.booking_index", compact('vehicles', 'trips', 'bookings'));
     }
 
     /**
@@ -67,7 +80,7 @@ class BookingController extends Controller
 
         $this->validate($request, $rules);
 
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("POST", "/nonAdmin/bookings", [
             "headers" => ["Authorization" => Session::get("token")],
@@ -80,9 +93,17 @@ class BookingController extends Controller
 
         $result = json_decode($response->getBody());
         
+        $booking = $result->booking;
+        $trip = $result->trip;
+        $vehicle = $result->vehicle;
+        $referenceNo = Str::limit($booking->_id, 7);
+        $tripRef = Str::limit($trip->_id, 6);
 
-        dd($result);
-        return view("ticket",compact('trip'));
+
+        // dd($referenceNo);
+
+
+        return view("ticket",compact('trip', 'booking', 'vehicle', 'referenceNo', 'tripRef'));
     }
     public function ticket()
     {
@@ -95,7 +116,24 @@ class BookingController extends Controller
      */
     public function show($id)
     {
-        //
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
+
+        $response = $client->request("DELETE", "/nonAdmin/bookings/".$id, [
+            "headers" => ["Authorization" => Session::get("token")],
+        ]);
+
+
+        $result = json_decode($response->getBody());
+        // dd($result);
+        $vehicle = $result->vehicle;
+        $trip = $result->trip;
+        $booking = $result->booking;
+        $referenceNo = Str::limit($booking->_id, 7);
+        $tripRef = Str::limit($trip->_id, 6);
+
+        // dd($referenceNo);
+
+        return view("ticket",compact('trip', 'booking', 'vehicle', 'referenceNo', 'tripRef'));
     }
 
     /**
@@ -106,7 +144,26 @@ class BookingController extends Controller
      */
     public function edit($id)
     {
-        //
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
+
+        $response = $client->request("DELETE", "/nonAdmin/bookings/".$id, [
+            "headers" => ["Authorization" => Session::get("token")],
+        ]);
+
+
+        $result = json_decode($response->getBody());
+        // dd($result);
+        $vehicle = $result->vehicle;
+        $trip = $result->trip;
+        $booking = $result->booking;
+        $referenceNo = Str::limit($booking->_id, 7);
+        $tripRef = Str::limit($trip->_id, 6);
+
+
+        // dd($referenceNo);
+
+
+        return view("ticket",compact('trip', 'booking', 'vehicle', 'referenceNo', 'tripRef'));
     }
 
     /**
@@ -129,6 +186,16 @@ class BookingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
+
+        $response = $client->request("DELETE", "/nonAdmin/bookings/".$id, [
+            "headers" => ["Authorization" => Session::get("token")],
+        ]);
+
+
+        $result = json_decode($response->getBody());
+
+
+        return redirect('/bookings');
     }
 }

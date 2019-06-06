@@ -19,27 +19,34 @@ class AuthController extends Controller
     	$email = $request->email;
     	$password = $request->password;
 
+        try {
+        	$client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
-    	$client = new Client(["base_uri" => "http://localhost:3000"]);
+        	$response = $client->request("POST", "/register/user", [
+        		"json" => [
+                    "fname" => $fname,
+                    "lname" => $lname,
+                    "mobile" => $mobile,
+        			"email" => $email,
+        			"password" => $password,
+        		]
+        	]);
 
-    	$response = $client->request("POST", "/register/user", [
-    		"json" => [
-                "fname" => $fname,
-                "lname" => $lname,
-                "mobile" => $mobile,
-    			"email" => $email,
-    			"password" => $password,
-    		]
-    	]);
-        // dd($response);
-    	$result = json_decode($response->getBody());
+        	$result = json_decode($response->getBody());
 
-        // dd($result->message);
+            return redirect('/login');
 
-        if($result->message == "user registered successfully") {
-            return redirect("/login");
+        } catch(BadResponseException $e) {
+            if($e->hasResponse()){
+                $e = json_decode($e->getResponse()->getBody()->getContents(), true);
+                Session::flash("error", $e['error']);
+                
+                Session::flash('alert-class', 'alert-danger');
+
+                return redirect('/register');
+            }
         }
-        return redirect("/register")->with($error);
+
     }
 
     public function loginForm () {
@@ -51,7 +58,7 @@ class AuthController extends Controller
     	$password = $request->password;
 
 
-    	$client = new Client(["base_uri" => "http://localhost:3000"]);
+    	$client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
     	$response = $client->request("POST", "auth/login", [
     		"json" => [

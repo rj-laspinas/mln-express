@@ -48,7 +48,12 @@ Route::get("/trip","TripController@user");
 
 Route::post("/bookings/summary","BookingController@summary");
 Route::post("/bookings","BookingController@store");
+Route::get("/bookings","BookingController@index");
 Route::get("/bookings/ticket","BookingController@ticket");
+Route::post("/bookings/cancel/{id}","BookingController@destroy");
+Route::get("/bookings/{id}","BookingController@show");
+
+
 
 
 // Route::resource("bookings","BookingController");
