@@ -119,8 +119,8 @@
 									@if($trip->isCancelled == true)
 										<tr>
 											<td>{{$trip->origin}}-{{$trip->destination}}</td>
-											<td>{{$trip->startDate}}</td>
-											<td>{{$trip->endDate}}</td>
+											<td>{{Carbon\Carbon::parse($trip->startDate)->format('m-d-Y h:m:s')}}</td>
+											<td>{{Carbon\Carbon::parse($trip->endDate)->format('m-d-Y h:m:s')}}</td>
 											<td>{{$trip->price}}</td>
 											<td>{{$trip->seats}}</td>
 											<td>
