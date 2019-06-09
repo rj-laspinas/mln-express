@@ -13,21 +13,105 @@ class BookingController extends Controller
         $tripId = $request->tripId;
         $quantity = $request->quantity;
         $price = $request->price;
-        $amount = $quantity * $price;
+        $amount = "₱". $quantity * $price;
+
+        Session::put("tripId", $tripId);
+        Session::put("quantity", $quantity);
+        Session::put("price", $price);
+        Session::put("amount", $amount);
 
         $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
-        $response = $client->request("GET", "/guest/trips/".$tripId, [
+        if(Session::get("user") !== null){        
+
+            $response = $client->request("GET", "/guest/trips/".$tripId, [
+                "headers" => ["Authorization" => Session::get("token")],
+            ]);
+
+            $result = json_decode($response->getBody());
+            $vehicle = $result->vehicle;
+            $trip = $result->trip;
+
+        return view('nonAdmin.booking_summary', compact('tripId', 'quantity', 'price', 'amount', 'vehicle', 'trip'));
+        /*REDIRECT TO GUEST DETAILS PAGE*/
+        } else {
+
+            $response = $client->request("GET", "/guest/trips/".$tripId);
+
+            $result = json_decode($response->getBody());
+
+            $trip = $result->trip;
+
+
+        return view("guest.booking", compact('trip','quantity'));    
+        }
+    }
+
+    public function guestsummary(Request $request)
+    
+    {   
+        $fname = $request->fname;
+        $lname = $request->lname;
+        $mobile = $request->mobile;
+        $email = $request->email;
+
+
+         $rules = array(
+            "fname" => "required",
+            "lname" => "required",
+            "mobile" => "required",
+            "email" => "required"
+        );
+
+        $this->validate($request, $rules);
+
+        Session::put("fname", $request->fname);
+        Session::put("lname", $request->lname);
+        Session::put("mobile", $request->mobile);
+        Session::put("email", $request->email);
+
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
+
+
+        $response = $client->request("GET", "/guest/trips/".Session::get('tripId'), [
+                "headers" => ["Authorization" => Session::get("token")],
+            ]);
+
+            $result = json_decode($response->getBody());
+            $vehicle = $result->vehicle;
+            $trip = $result->trip;
+
+        return view('guest.booking_summary', compact('vehicle', 'trip'));
+    }
+
+    public function createGuest(Request $request) 
+
+    {
+        $client = new Client(["base_uri" => "localhost:3000"]);
+
+        $response = $client->request("POST", "/guest/bookings", [
             "headers" => ["Authorization" => Session::get("token")],
+            "json" => [
+                "quantity" => Session::get("quantity"),
+                "price" => Session::get("price"),
+                "tripId" => Session::get("tripId"),
+                "fname" => Session::get("fname"),
+                "lname" => Session::get("lname"),
+                "mobile" => Session::get("mobile"),
+                "email"  => Session::get("email"),
+            ]
         ]);
 
         $result = json_decode($response->getBody());
 
-        // dd($result);
-        $vehicle = $result->vehicle;
+        $booking = $result->booking;
         $trip = $result->trip;
+        $vehicle = $result->vehicle;
+        $user = $result->user;
+        $guest = $result->guest;
 
-        return view('nonAdmin.booking_summary', compact('tripId', 'quantity', 'price', 'amount', 'vehicle', 'trip'));
+        return view("guest.ticket", compact('booking', 'trip', 'vehicle', 'user', 'guest'));
+
     }
     /**
      * Display a listing of the resource.
@@ -103,11 +187,9 @@ class BookingController extends Controller
         // dd($referenceNo);
 
 
-        return view("ticket",compact('trip', 'booking', 'vehicle', 'referenceNo', 'tripRef'));
+        return view("nonAdmin.ticket",compact('trip', 'booking', 'vehicle', 'referenceNo', 'tripRef'));
     }
-    public function ticket()
-    {
-        return view('ticket', compact());    }
+
     /**
      * Display the specified resource.
      *
@@ -133,7 +215,7 @@ class BookingController extends Controller
 
         // dd($referenceNo);
 
-        return view("ticket",compact('trip', 'booking', 'vehicle', 'referenceNo', 'tripRef'));
+        return view("nonAdmin.ticket",compact('trip', 'booking', 'vehicle', 'referenceNo', 'tripRef'));
     }
 
     /**
@@ -163,7 +245,7 @@ class BookingController extends Controller
         // dd($referenceNo);
 
 
-        return view("ticket",compact('trip', 'booking', 'vehicle', 'referenceNo', 'tripRef'));
+        return view("nonAdmin.ticket",compact('trip', 'booking', 'vehicle', 'referenceNo', 'tripRef'));
     }
 
     /**

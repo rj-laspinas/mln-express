@@ -173,15 +173,19 @@
 		<div class="col-sm-12 col-lg-2 mr-auto ">
             <h4 class="btn btn-primary btn-block">Admin Menu</h4>
     		<ul class="list-group">
+                <li class="list-group-item btn"  data-toggle="modal" data-target="#modalAddTrip">
+                    Add Trip
+                </li>
                 <li class="list-group-item btn" data-toggle="modal" data-target="#modalAddVehicleForm">
                     Add Vehicle
                 </li>
                 <li class="list-group-item btn"  data-toggle="modal" data-target="#modalAddCategory">
-                    Add Category
+                    Add Vehicle/Trip Class
                 </li>
-                <li class="list-group-item btn"  data-toggle="modal" data-target="#modalAddTrip">
-                    Add Trip
+                <li class="list-group-item btn"  data-toggle="modal" data-target="#modalAddLocation">
+                    Add location
                 </li>
+
 
             </ul>
 		</div>
@@ -218,16 +222,34 @@
                             <div class="md-form my-2">
                               <label data-error="wrong" data-success="right" for="price">Price per Ticket</label>
                               <input type="number" id="price" name="price" class="form-control validate">
-                              
+
                             </div>
                             <div class="md-form my-2">
-                              <label data-error="wrong" data-success="right" for="origin">Origin</label>
-                              <input type="text" id="origin" name="origin" class="form-control validate">
-                              
+                                <label data-error="wrong" data-success="right" for="origin">Origin</label>
+                                <input type="text" id="origin" name="origin" class="form-control validate">
+                                <select name="origin" class="form-control validate">
+                                    <option value="" disabled selected>Select Vehicles</option>
+                                    @foreach($locations as $location)
+                                        <option class="">
+                                            {{$location->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="md-form my-2">
                               <label data-error="wrong" data-success="right" for="destination">Destination</label>
                               <input type="text" id="destination" name="destination" class="form-control validate">
+                              <select name="destination" class="form-control validate">
+                                    <option value="" disabled selected>Select Vehicles</option>
+                                    @foreach($locations as $location)
+                                        <option class="">
+                                            {{$location->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <button type="button" class="btn btn-outline" data-toggle="modal" data-target="#modalAddLocation">
+                                    Add New Location/Place
+                                </button> 
                             </div>
                             <div class="md-form my-2">
                               <label data-error="wrong" data-success="right" for="startDate">Start Date</label>
@@ -331,5 +353,42 @@
       </div>
     </div>
 
+{{-- MODAL - ADD LOCATION --}}
 
+    <div class="modal fade modalcss" id="modalAddLocation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="dialog">
+        <div class="modal-content" id="cssmodalAddLocation" >
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">New Service Class</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <form method="POST" action="/location">
+                    @csrf
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="streetAdress">Street Address</label>
+                        <input type="text" name="name" id="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City/Municipalty</label>
+                        <input type="text" name="name" id="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="province">Province/Region</label>
+                        <input type="text" name="name" id="name" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-success">Add New Location</button>
+                </form>
+            </div>
+               
+        </div>
+      </div>
+    </div>
 @endsection

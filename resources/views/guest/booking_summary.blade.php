@@ -18,9 +18,9 @@
 						<p>Email 		:</p>
 					</div>
 					<div class="col-lg-3">
-						<p><b>{{Session::get("user")->lname}}, {{Session::get("user")->fname}}</b></p>
-						<p><b>{{Session::get("user")->mobile}}</b></p>
-						<p><b>{{Session::get("user")->email}}</b></p>
+						<p><b>{{Session::get("lname")}}, {{Session::get("fname")}}</b></p>
+						<p><b>{{Session::get("mobile")}}</b></p>
+						<p><b>{{Session::get("email")}}</b></p>
 					</div>
 				</div>
 				<br>
@@ -46,34 +46,27 @@
 
 					<div class="md-form my-2">
 						<label data-error="wrong" data-success="right" for="origin">Price per Ticket</label>
-                        <input id="" type="text" class="form-control" name="" value="{{$price}}" required autofocus disabled>
+                        <input id="" type="text" class="form-control" name="" value="{{Session::get("price")}}" required autofocus disabled>
 
 	                </div>
 	                <div class="md-form my-2">
 	                 	<label data-error="wrong" data-success="right" for="destination">Quantity</label>
-                        <input id="" type="text" class="form-control" name="" value="{{$quantity}}" required autofocus disabled>
+                        <input id="" type="text" class="form-control" name="" value="{{Session::get("quantity")}}" required autofocus disabled>
 
 	                </div>
 	                <div class="md-form my-2">
 	                	<label data-error="wrong" data-success="right" for="startDate">Total Fare (Php)</label>
-                      <input id="" type="number" class="form-control" name="" value="{{$amount}}" required autofocus disabled>
+                      <input id="" type="text" class="form-control" name="" value="{{Session::get("amount")}}" required autofocus disabled>
                
                     </div>
 
-			    <form method="POST" action="/bookings" enctype="multipart/form-data">
+			    <form method="POST" action="/bookings/guest" enctype="multipart/form-data">
 			    	@csrf
-			    	<input type="hidden" name="tripId" class="form-control" value="{{$tripId}}">
-			    	<input type="hidden" name="quantity" class="form-control" value="{{$quantity}}">
-			    	<input type="hidden" name="price" class="form-control" value="{{$price}}">
-
 	                <div class="modal-footer d-flex justify-content-left">
                     	<button type="submit" class="btn btn-info btn-block">Proceed and Pay with Stripe</button>
                 	</div>
-
 	            </form>
-	            
 			</div>
-			
 		</div>
 	</div>
 </div>

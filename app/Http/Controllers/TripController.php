@@ -17,13 +17,16 @@ class TripController extends Controller
             "headers" => ["Authorization" => Session::get("token")],
         ]);
 
-        $result = json_decode($response->getBody());
+        $results = json_decode($response->getBody());
         
-        $vehicles = $result->vehicles;
-        $trips = $result->trips;
-        $categories = $result->categories;
+        $vehicles = $results->vehicles;
+        $trips = $results->trips;
+        $categories = $results->categories;
+        $locations = $results->locations;
 
-        return view("index", compact('vehicles', 'trips', 'categories'));
+        dd($results);
+
+        return view("index", compact('vehicles', 'trips', 'categories', 'locations', 'locations'));
     }
     
 

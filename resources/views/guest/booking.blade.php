@@ -1,14 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-	<div class="row">
-		<div class="col-lg-6 col-md-8 col-sm-12 white-background modal-content">
-			<h1>User Registration Form</h1>
-			<form  class="form-group" method="POST" action="/register">
-				@csrf
-				        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Firt Name') }}</label>
+            @if(Session::has('error'))
+                <div class="alert {{Session::get('alert-class')}} alert-dismissible fade show align float-right" role="alert">
+                    {{ Session::get('error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
+ <div class="row mx-3">
+
+        <div class="col-lg-4 col-md-6 col-sm-12 white-background modal-content">
+            <h4 class="my2"><b>Customer Details</b></h4>
+            <p>Please complete the necessary information to proceed with transaction.</p>
+            <form  class="form-group" method="POST" action="/bookings/guest/summary">
+                @csrf
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
 
                             <div class="col-md-6">
                                 <input id="fname" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="fname" value="{{ old('name') }}" required autofocus>
@@ -64,39 +74,35 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    Confirm Details
                                 </button>
                             </div>
                         </div>
-			</form>
-		</div>
-	</div>
+            </form>
+        </div>
+    {{-- TRIP SUMMARY --}}
+        <div class="col-lg-4 col-md-6">
+            <h4 class="card-title "><b>Trip Details Summary</b></h4>            
+
+            <div class="md-form my-2">
+                <label data-error="wrong" data-success="right" for="origin">Origin</label>
+                <input id="origin" type="text" class="form-control" name="" value="{{$trip->origin}}" required autofocus disabled>
+
+            </div>
+            <div class="md-form my-2">
+                <label data-error="wrong" data-success="right" for="destination">Destination</label>
+                <input id="" type="text" class="form-control" name="" value="{{$trip->destination}}" required autofocus disabled>
+
+            </div>
+            <div class="md-form my-2">
+                <label data-error="wrong" data-success="right" for="startDate">Date/Time of Departure</label>
+              <input id="" type="text" class="form-control" name="" value="{{Carbon\Carbon::parse($trip->startDate)->format('m-d-Y h:m:s')}}" required autofocus disabled>
+       
+            </div>
+        </div>
+
 </div>
-
-
 @endsection

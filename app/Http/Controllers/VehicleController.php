@@ -16,18 +16,24 @@ class VehicleController extends Controller
      */
     public function index()
     {   
-        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
-        $response = $client->request("GET", "/admin/vehicles", [
-            "headers" => ["Authorization" => Session::get("token")],
-        ]);
+        if(Session::get("user")->isAdmin = true ) {
+            $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
-        $result = json_decode($response->getBody());
-        
-        $vehicles = $result->vehicles;
-        $categories = $result->categories;
+            $response = $client->request("GET", "/admin/vehicles", [
+                "headers" => ["Authorization" => Session::get("token")],
+            ]);
 
-        return view("admin.vehicles_index", compact('vehicles', 'categories'));
+            $result = json_decode($response->getBody());
+            dd($result);
+            $vehicles = $result->vehicles;
+            $categories = $result->categories;
+            $locations = $result->locations;
+
+            return view("admin.vehicles_index", compact('vehicles', 'categories', 'locations'));
+        } else {
+            return redirect("/");
+        }
     }
 
     /**
@@ -48,6 +54,7 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {   
+
         $rules = array(
             "category" => "required",
             "vehicleType" => "required",

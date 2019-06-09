@@ -40,7 +40,7 @@ class AuthController extends Controller
             if($e->hasResponse()){
                 $e = json_decode($e->getResponse()->getBody()->getContents(), true);
                 Session::flash("error", $e['error']);
-                
+        
                 Session::flash('alert-class', 'alert-danger');
 
                 return redirect('/register');
