@@ -24,7 +24,7 @@ class TripController extends Controller
         $categories = $results->categories;
         $locations = $results->locations;
 
-        dd($results);
+        // dd($results);
 
         return view("index", compact('vehicles', 'trips', 'categories', 'locations', 'locations'));
     }

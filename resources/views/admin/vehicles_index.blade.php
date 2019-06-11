@@ -180,7 +180,7 @@
                     Add Vehicle
                 </li>
                 <li class="list-group-item btn"  data-toggle="modal" data-target="#modalAddCategory">
-                    Add Vehicle/Trip Class
+                    Add Vehicle Class
                 </li>
                 <li class="list-group-item btn"  data-toggle="modal" data-target="#modalAddLocation">
                     Add location
@@ -207,28 +207,36 @@
                   <div class="modal-body mx-3">
                         <form method="POST" action="/trips" enctype="multipart/form-data">
                         @csrf
-                            <div class="md-form my-2 mx-3">
-                                <label for="vehicleId">Vehicle/label>
-                                <select name="vehicleId" class="form-control validate">
-                                    <option value="" disabled selected>Select Vehicles</option>
-                                    @foreach($vehicles as $vehicle)
-                                        <option class="" value="{{$vehicle->_id}}" >
-                                            {{$vehicle->plate}}
-                                        </option>
-                                    @endforeach
-                                </select>
-            
+                            <div class="row">
+                                <div class="md-form col-lg-8 ">
+{{--                                     <label for="vehicleId">Vehicle</label>
+ --}}                                    <select name="vehicleId" class="form-control validate">
+                                        <option value="" disabled selected>Assign Vehicle</option>
+                                        @foreach($vehicles as $vehicle)
+                                            <option class="" value="{{$vehicle->_id}}" >
+                                                {{$vehicle->plate}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                
+                                </div> 
+                                <div class="col-lg-4">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAddVehicleForm">
+                                        Add Vehicle
+                                    </button>
+                                </div>
                             </div>
+                           
                             <div class="md-form my-2">
-                              <label data-error="wrong" data-success="right" for="price">Price per Ticket</label>
-                              <input type="number" id="price" name="price" class="form-control validate">
+                              {{-- <label data-error="wrong" data-success="right" for="price">Price per Ticket</label> --}}
+                              <input type="number" id="price" name="price" class="form-control validate" placeholder="Ticket Price">
 
                             </div>
                             <div class="md-form my-2">
-                                <label data-error="wrong" data-success="right" for="origin">Origin</label>
-                                <input type="text" id="origin" name="origin" class="form-control validate">
+     {{--                            <label data-error="wrong" data-success="right" for="origin">Origin</label>
+                                <input type="text" id="origin" name="origin" class="form-control validate"> --}}
                                 <select name="origin" class="form-control validate">
-                                    <option value="" disabled selected>Select Vehicles</option>
+                                    <option value="" disabled selected>Origin</option>
                                     @foreach($locations as $location)
                                         <option class="">
                                             {{$location->name}}
@@ -236,28 +244,32 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="md-form my-2">
-                              <label data-error="wrong" data-success="right" for="destination">Destination</label>
-                              <input type="text" id="destination" name="destination" class="form-control validate">
-                              <select name="destination" class="form-control validate">
-                                    <option value="" disabled selected>Select Vehicles</option>
-                                    @foreach($locations as $location)
-                                        <option class="">
-                                            {{$location->name}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <button type="button" class="btn btn-outline" data-toggle="modal" data-target="#modalAddLocation">
-                                    Add New Location/Place
+                            <div class="md-form row">
+                              {{-- <label data-error="wrong" data-success="right" for="destination">Destination</label>
+                              <input type="text" id="destination" name="destination" class="form-control validate"> --}}
+                                <div class="col-lg-8">
+                                  <select name="destination" class="form-control validate">
+                                        <option value="" disabled selected>Destination</option>
+                                        @foreach($locations as $location)
+                                            <option class="">
+                                                {{$location->name}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-lg-4">   
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalAddLocation">
+                                    Add New Location
                                 </button> 
                             </div>
-                            <div class="md-form my-2">
-                              <label data-error="wrong" data-success="right" for="startDate">Start Date</label>
-                              <input type="datetime-local" id="startDate" name="startDate" class="form-control validate">
                             </div>
-                            <div class="md-form my-2">
-                              <label data-error="wrong" data-success="right" for="endDate">End Date</label>
-                              <input type="datetime-local" id="endDate" name="endDate" class="form-control validate">
+                            <div class="md-form my-2 form-inline">
+                              <label data-error="wrong" data-success="right" for="startDate">Start Date </label>
+                              <input type="datetime-local" id="startDate" name="startDate" class="form-control validate mx-2" placeholder="Start of Trip">
+                            </div>
+                            <div class="md-form my-2 form-inline">
+                              <label data-error="wron g" data-success="right" for="endDate">End Date</label>
+                              <input type="datetime-local" id="endDate" name="endDate" class="form-control validate mx-2" placeholder="End of Trip">
                             </div>
 
 

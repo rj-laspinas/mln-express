@@ -37,7 +37,7 @@
 						<div class="col-lg-4">
 							<pre><p>Name 			: 	<b>{{$user->lname}}, {{$user->fname}}</b></p></pre>
 							<pre><p>Mobile 			: 	<b>{{$user->mobile}}</b></p></pre>
-							<pre><p>Email 			: 	<b>{{$guest->email}}</b></p></pre>
+							<pre><p>Email 			: 	<b>{{$user->isGuest}}</b></p></pre>
 						</div>
 					</div>
 				@endif

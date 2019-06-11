@@ -108,9 +108,8 @@ class BookingController extends Controller
         $trip = $result->trip;
         $vehicle = $result->vehicle;
         $user = $result->user;
-        $guest = $result->guest;
 
-        return view("guest.ticket", compact('booking', 'trip', 'vehicle', 'user', 'guest'));
+        return view("guest.ticket", compact('booking', 'trip', 'vehicle', 'user'));
 
     }
     /**

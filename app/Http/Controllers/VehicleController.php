@@ -25,7 +25,7 @@ class VehicleController extends Controller
             ]);
 
             $result = json_decode($response->getBody());
-            dd($result);
+            // dd($result);
             $vehicles = $result->vehicles;
             $categories = $result->categories;
             $locations = $result->locations;

@@ -15,7 +15,26 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        if(Session::get("user") !== null) {        
+            if(Session::get("user")->isAdmin == true) {
+
+            $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
+
+            $response = $client->request("GET", "/admin/users", [
+                "headers" => ["Authorization" => Session::get("token")],
+            ]);
+
+
+            $users = json_decode($response->getBody());
+
+            return view("admin.user_index", compact('users'));
+
+            } else {
+                return redirect("/login");
+            }
+        } else {
+            return redirect("/");
+        }
     }
 
     /**
@@ -58,8 +77,31 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
-    }
+        if(Session::get("user") !== null) {        
+            if(Session::get("user")->isAdmin == true) {
+
+            $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
+
+            $response = $client->request("DELETE", "/admin/users".$id."/admin", [
+                "headers" => ["Authorization" => Session::get("token")],
+            ]);
+
+
+            $users = json_decode($response->getBody());
+
+            dd($users);
+
+
+            return view("admin.user_index", compact('users'));
+
+            } else {
+                return redirect("/login");
+            }
+        } else {
+            return redirect("/");
+        }    
+    }    
+
 
     /**
      * Update the specified resource in storage.
@@ -70,7 +112,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+
+
     }
 
     /**
@@ -81,6 +125,28 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Session::get("user") !== null) {        
+            if(Session::get("user")->isAdmin == true) {
+
+            $client = new Client(["base_uri" => "localhost:3000"]);
+
+            $response = $client->request("DELETE", "/admin/users".$id, [
+                "headers" => ["Authorization" => Session::get("token")],
+            ]);
+
+
+            $users = json_decode($response->getBody());
+
+            dd($users);
+
+
+            return view("admin.user_index", compact('users'));
+
+            } else {
+                return redirect("/login");
+            }
+        } else {
+            return redirect("/");
+        }    
     }
 }

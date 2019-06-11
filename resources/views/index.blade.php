@@ -10,8 +10,20 @@
 				<form method="POST" action="/trips/search" enctype="multipart/form-data">
             	@csrf
 					<div class="md-form my-2">
-						<label data-error="wrong" data-success="right" for="origin">Origin</label>
-                        <input id="origin" type="text" class="form-control{{ $errors->has('origin') ? ' is-invalid' : '' }}" name="origin" value="{{ old('origin') }}" required autofocus>
+				{{-- 		<label data-error="wrong" data-success="right" for="origin">Origin</label>
+                        <input id="origin" type="text" class="form-control{{ $errors->has('origin') ? ' is-invalid' : '' }}" name="origin" value="{{ old('origin') }}" required autofocus> --}}
+
+                        <select class="form-control{{ $errors->has('origin') ? ' is-invalid' : '' }}" id="origin" name="orgin">
+                        	<option value="" disabled selected>Select Origin</option>
+                        		@foreach($locations as $location)
+                        			<option value="{{$location->name}}">
+                        				{{$location->name}}
+                        				@if($location->province !== "")
+                        					, {{$location->province}}
+                        				@endif
+                        			</option>
+                        		@endforeach
+                        </select>
 
                         @if ($errors->has('origin'))
                             <span class="invalid-feedback" role="alert">
@@ -22,8 +34,20 @@
 
 	                </div>
 	                <div class="md-form my-2">
-	                 	<label data-error="wrong" data-success="right" for="destination">Destination</label>
-                        <input id="destination" type="text" class="form-control{{ $errors->has('destination') ? ' is-invalid' : '' }}" name="destination" value="{{ old('destination') }}" required autofocus>
+	            {{--      	<label data-error="wrong" data-success="right" for="destination">Destination</label>
+                        <input id="destination" type="text" class="form-control{{ $errors->has('destination') ? ' is-invalid' : '' }}" name="destination" value="{{ old('destination') }}" required autofocus> --}}
+
+                        <select class="form-control{{ $errors->has('destination') ? ' is-invalid' : '' }}" id="destination" name="destination">
+                        	<option value="" disabled selected>Select Destination</option>
+                        		@foreach($locations as $location)
+                        			<option value="{{$location->name}}">
+                        				{{$location->name}}
+                        				@if($location->province !== "")
+                        					, {{$location->province}}
+                        				@endif
+                        			</option>
+                        		@endforeach
+                        </select>
 
                         @if ($errors->has('destination'))
                             <span class="invalid-feedback" role="alert">
