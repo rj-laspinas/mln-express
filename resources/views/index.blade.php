@@ -13,7 +13,7 @@
 				{{-- 		<label data-error="wrong" data-success="right" for="origin">Origin</label>
                         <input id="origin" type="text" class="form-control{{ $errors->has('origin') ? ' is-invalid' : '' }}" name="origin" value="{{ old('origin') }}" required autofocus> --}}
 
-                        <select class="form-control{{ $errors->has('origin') ? ' is-invalid' : '' }}" id="origin" name="orgin">
+                        <select class="form-control{{ $errors->has('origin') ? ' is-invalid' : '' }}" id="origin" name="origin">
                         	<option value="" disabled selected>Select Origin</option>
                         		@foreach($locations as $location)
                         			<option value="{{$location->name}}">
