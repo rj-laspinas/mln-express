@@ -108,19 +108,19 @@
 			  <!-- The slideshow -->
 			 <div class="carousel-inner">
 			    <div class="carousel-item active">
-			      	<img src="{{url('/images/tourism1.jpg')}}" alt="Ph tourism">
+			      	<img src="{{url('/images/tourism01.jpg')}}" alt="Ph tourism">
 			    </div>
 			    <div class="carousel-item">
-			      	<img src="{{url('/images/tourism2.jpg')}}" alt="Ph tourism">
+			      	<img src="{{url('/images/tourism02.jpg')}}" alt="Ph tourism">
 			    </div>
 			    <div class="carousel-item">
-			      	<img src="{{url('/images/tourism3.jpg')}}" alt="New Ph tourism">
+			      	<img src="{{url('/images/tourism03.jpg')}}" alt="New Ph tourism">
 			    </div>
 			    <div class="carousel-item">
-			      	<img src="{{url('/images/tourism4.jpg')}}" alt="New Ph tourism">
+			      	<img src="{{url('/images/tourism04.jpg')}}" alt="New Ph tourism">
 			    </div>
 			    <div class="carousel-item">
-			      	<img src="{{url('/images/tourism5.jpg')}}" alt="New Ph tourism">
+			      	<img src="{{url('/images/tourism05.jpg')}}" alt="New Ph tourism">
 			    </div>
 			 </div>
 
