@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 
 #mlnLogo {
-	width: 20vh;
+	width: 15vh;
 	height: auto;;
 }
 
@@ -27,6 +27,10 @@
 html body {
 	height: 100vh;
 	margin: 0;
+}
+
+.carousel-img {
+	background-size: cover;
 }
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)

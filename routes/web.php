@@ -15,6 +15,7 @@
 // });
 
 Route::get('/', "TripController@home");
+Route::get('/options', "VehicleController@options");
 
 Route::get("/register", "AuthController@registerForm");
 

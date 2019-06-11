@@ -42,9 +42,6 @@
                         		@foreach($locations as $location)
                         			<option value="{{$location->name}}">
                         				{{$location->name}}
-                        				@if($location->province !== "")
-                        					, {{$location->province}}
-                        				@endif
                         			</option>
                         		@endforeach
                         </select>
@@ -108,19 +105,19 @@
 			  <!-- The slideshow -->
 			 <div class="carousel-inner">
 			    <div class="carousel-item active">
-			      	<img src="{{url('/images/tourism01.jpg')}}" alt="Ph tourism">
+			      	<img src="{{url('/images/tourism01.jpg')}}" alt="Ph tourism" class="carousel-img">
 			    </div>
 			    <div class="carousel-item">
-			      	<img src="{{url('/images/tourism02.jpg')}}" alt="Ph tourism">
+			      	<img src="{{url('/images/tourism02.jpg')}}" alt="Ph tourism" class="carousel-img">
 			    </div>
 			    <div class="carousel-item">
-			      	<img src="{{url('/images/tourism03.jpg')}}" alt="New Ph tourism">
+			      	<img src="{{url('/images/tourism03.jpg')}}" alt="New Ph tourism" class="carousel-img">
 			    </div>
 			    <div class="carousel-item">
-			      	<img src="{{url('/images/tourism04.jpg')}}" alt="New Ph tourism">
+			      	<img src="{{url('/images/tourism04.jpg')}}" alt="New Ph tourism" class="carousel-img">
 			    </div>
 			    <div class="carousel-item">
-			      	<img src="{{url('/images/tourism05.jpg')}}" alt="New Ph tourism">
+			      	<img src="{{url('/images/tourism05.jpg')}}" alt="New Ph tourism" class="carousel-img">
 			    </div>
 			 </div>
 

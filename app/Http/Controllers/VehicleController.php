@@ -41,9 +41,26 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function options()
     {
-        //
+
+        if(Session::get("user")->isAdmin = true ) {
+            $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
+
+            $response = $client->request("GET", "/admin/vehicles", [
+                "headers" => ["Authorization" => Session::get("token")],
+            ]);
+
+            $result = json_decode($response->getBody());
+            // dd($result);
+            $vehicles = $result->vehicles;
+            $categories = $result->categories;
+            $locations = $result->locations;
+
+            return view("admin.options", compact('vehicles', 'categories', 'locations'));
+        } else {
+            return redirect("/");
+        }    
     }
 
     /**

@@ -58,7 +58,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                 
-                                    <a class="dropdown-item" href="/">Administrator Options</a>
+                                    <a class="dropdown-item" href="/options">Administrator Options</a>
                                     <a class="dropdown-item" href="/logout" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
                                         Logout

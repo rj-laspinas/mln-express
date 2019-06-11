@@ -48,7 +48,8 @@ class LocationController extends Controller
             ]
         ]);
 
-        return redirect("/vehicles");    }
+        return redirect("/vehicles");    
+    }
 
     /**
      * Display the specified resource.
@@ -92,6 +93,11 @@ class LocationController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
+
+        $response = $client->request("DELETE", "/admin/locations/".$id, [
+            "headers" => ["Authorization" =>Session::get("token")],
+        ]);
+
+        return redirect("/options");       }
 }

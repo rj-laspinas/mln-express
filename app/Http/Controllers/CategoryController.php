@@ -36,7 +36,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("POST", "/admin/categories", [
             "headers" => ["Authorization" =>Session::get("token")],
@@ -90,6 +90,14 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
+
+        $response = $client->request("DELETE", "/admin/categories/".$id, [
+            "headers" => ["Authorization" =>Session::get("token")],
+            "json" => [
+                "name" => $request->name,
+            ]
+        ]);
+
+        return redirect("/options");    }
 }

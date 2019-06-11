@@ -2,98 +2,56 @@
 
 @section('content')
 <div class="row mx-3">
-	{{-- VEHICLE INVENTORY --}}
-		<div class="col-sm-12 col-lg-8">
-            {{-- VEHICLE ACTIVE FLEET --}}
+		<div class="col-sm-12 col-lg-4">
+            {{-- LOCATIONS --}}
 			<div class="accordion" id="transactionSummary_accordion mx-3">
                 <div class="align-middle" id="display_transactionummary">
                     <button class="btn btn-success btn-lg btn-block" type="button" data-toggle="collapse" data-target="#collapsetransactionsummary" aria-expanded="true" aria-controls="collapsetransactionsummary">
-                        <h4>MLN Express Active Fleet</h4>
+                        <h4>Locations List</h4>
                     </button>
                 </div>
                 <div id="collapsetransactionsummary" class="collapse show px-0" aria-labelledby="display_transactionummary" data-parent="#transactionSummary_accordion">
          
                         <table class="table table-hover table-responsive">
                             <thead >                                   
-                                <th class="align-middle">Category</th>
-                                <th class="align-middle">Type</th>
-                                <th class="align-middle">Model</th>
-                                <th class="align-middle">ID/Plate Number</th>
-                                <th class="align-middle">Seating Capacity</th>
-                                <th class="align-middle">Trip Status</th>
-                                <th class="align-middle">Condition</th>
+                                <th class="align-middle">Primary Place Name</th>
+                             {{--    <th class="align-middle">Street Address</th> --}}
+                               <th class="align-middle">City/Municipality</th>
+                                <th class="align-middle">Province</th>
+                                <th class="align-middle">Actions</th>
+
                             </thead>
                             <tbody>
                                 <col width="200">
-                                <col width="100">
-                                <col width="130">
-                                <col width="130">
                                 <col width="130">
                                 <col width="130">
                                 <col width="130">
 
-                            @foreach($vehicles as $vehicle)
-                                @if($vehicle->isServiceable == true)
-                                    <tr>                                          
-                                        <td>
-                                            <a class="text-dark" href="/vehicles/{{$vehicle->_id}}/edit" >
-                                                {{$vehicle->category}}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="text-dark" href="/vehicles/{{$vehicle->_id}}/edit" >
-                                                {{$vehicle->vehicleType}}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="text-dark" href="/vehicles/{{$vehicle->_id}}/edit" >
-                                                {{$vehicle->vehicleModel}}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="text-dark" href="/vehicles/{{$vehicle->_id}}/edit" >
-                                                {{$vehicle->plate}}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="text-dark" href="/vehicles/{{$vehicle->_id}}/edit" >
-                                                {{$vehicle->seatingCap}}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            @if($vehicle->onTrip == true)
-                                                <span>In Transit</span>
-                                            @else
-                                                <span>at Terminal</span>
-                                            @endif
-                                        </td>
-                                    
-                                        <td>
- 
-                                            @if($vehicle->isServiceable == 'true')
-                                                <form method="POST" action="/vehicles/service/{{$vehicle->_id}}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-success">Available</button>
-                                                </form>                                 
-                                            @else
-                                                <form method="POST" action="/vehicles/service/{{$vehicle->_id}}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-danger">Repair on-going</button>
-                                                </form>
-                                            @endif
+                            @foreach($locations as $location)
+                                    <tr>   
+                                        <td>{{$location->name}}</td>
+                                        {{-- <td>{{$location->streetAddress}}</td> --}}
+                                        <td>{{$location->city}}</td>
+                                        <td>{{$location->province}}</td>                                                                          
+                                        <td> 
+                                            <form method="POST" action="/locations/{{$location->_id}}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger">Delete</button>
+                                            </form>
                                         </td>
 
                                     </tr>
-                                @endif
                             @endforeach
                             </tbody>
                         </table>
                 </div>
             </div>
             <br>
-            {{-- BROKEN VEHICLES --}}
+        </div>
+        <div class="col-sm-12 col-lg-4">
+
+            {{-- CATEGORIES --}}
             <div class="accordion" id="transactionSummary2_accordion">
                 <div class="align-middle" id="display_transactionummary2">
                     <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="collapse" data-target="#collapsetransactionsummary2" aria-expanded="true" aria-controls="collapsetransactionsummary2">
@@ -104,85 +62,31 @@
          
                     <table class="table table-hover table-responsive">
                         <thead >                                   
-                            <th class="align-middle">Category</th>
-                            <th class="align-middle">Type</th>
-                            <th class="align-middle">Model</th>
-                            <th class="align-middle">ID/Plate Number</th>
-                            <th class="align-middle">Seating Capacity</th>
-                            <th class="align-middle">Trip Status</th>
-                            <th class="align-middle">Condition</th>
+                            <th class="align-middle">Category Name</th>
+                            <th class="align-middle">Action</th>
 
                         </thead>
                         <tbody>
-                                <col width="200">
-                                <col width="100">
-                                <col width="130">
-                                <col width="130">
-                                <col width="130">
-                                <col width="130">
-                                <col width="130">
-                        @foreach($vehicles as $vehicle)
-                            @if($vehicle->isServiceable !== true)
-                                <tr>                                          
-                                    <td>
-                                        <a class="text-dark" href="/vehicles/{{$vehicle->_id}}/edit" >
-                                            {{$vehicle->category}}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a class="text-dark" href="/vehicles/{{$vehicle->_id}}/edit" >
-                                            {{$vehicle->vehicleType}}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a class="text-dark" href="/vehicles/{{$vehicle->_id}}/edit" >
-                                            {{$vehicle->vehicleModel}}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a class="text-dark" href="/vehicles/{{$vehicle->_id}}/edit" >
-                                            {{$vehicle->plate}}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a class="text-dark" href="/vehicles/{{$vehicle->_id}}/edit" >
-                                            {{$vehicle->seatingCap}}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        @if($vehicle->onTrip == true)
-                                            <span>In Transit</span>
-                                        @else
-                                            <span>at Terminal</span>
-                                        @endif
-                                    </td>
-                                
-                                    <td>
+                            <col width="200">
+                            <col width="130">
+                          @foreach($categories as $category)
 
-                                        @if($vehicle->isServiceable == 'true')
-                                            <form method="POST" action="/vehicles/service/{{$vehicle->_id}}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-success">Available</button>
-                                            </form>                                 
-                                        @else
-                                            <form method="POST" action="/vehicles/service/{{$vehicle->_id}}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger">Repair on-going</button>
-                                            </form>
-                                        @endif
+                                <tr>
+                                    <td>{{$category->name}}</td>
+                                    <td> 
+                                        <form method="POST" action="/categories/{{$category->_id}}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger">Delete</button>
+                                        </form>
                                     </td>
-
                                 </tr>
-                            @endif
-                        @endforeach
+                            @endforeach                        
                         </tbody>
                     </table>
                 </div>
             </div>
 		</div>
-
 	{{-- SIDEBAR --}}
 		<div class="col-sm-12 col-lg-2 ">
             <h4 class="btn btn-primary btn-block">Admin Menu</h4>
