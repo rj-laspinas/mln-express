@@ -50,9 +50,11 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="/trips">Trips</a>
+                                <a class="nav-link" href="/trips">Trip Manager</a>
                             </li>
-
+                            <li class="nav-item">
+                                <a class="nav-link" href="/user">user Directory</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                 
