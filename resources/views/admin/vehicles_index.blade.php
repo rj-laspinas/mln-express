@@ -378,7 +378,7 @@
                 </button>
             </div>
             <div class="modal-body mx-3">
-                <form method="POST" action="/location">
+                <form method="POST" action="/locations">
                     @csrf
                     <div class="form-group">
                         <label for="name">Name</label>

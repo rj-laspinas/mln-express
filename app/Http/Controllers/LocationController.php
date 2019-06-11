@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
+use Session;
 
 class LocationController extends Controller
 {
@@ -34,9 +36,9 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        $client = new Client(["base_uri" => "http://localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
-        $response = $client->request("POST", "/admin/location", [
+        $response = $client->request("POST", "/admin/locations", [
             "headers" => ["Authorization" =>Session::get("token")],
             "json" => [
                 "name" => $request->name,
