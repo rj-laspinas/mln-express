@@ -53,7 +53,7 @@
                                 <a class="nav-link" href="/trips">Trip Manager</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/user">user Directory</a>
+                                <a class="nav-link" href="/user">User Directory</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>

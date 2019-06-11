@@ -85,8 +85,9 @@ class TripController extends Controller
         $vehicles = $result->vehicles;
         $trips = $result->trips;
         $categories = $result->categories;
+        $locations = $result->location;
 
-        return view("admin.trips_index", compact('vehicles', 'trips', 'categories'));
+        return view("admin.trips_index", compact('vehicles', 'trips', 'categories', 'locations'));
     }
     
 

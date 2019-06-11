@@ -87,7 +87,7 @@ class BookingController extends Controller
     public function createGuest(Request $request) 
 
     {
-        $client = new Client(["base_uri" => "localhost:3000"]);
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("POST", "/guest/bookings", [
             "headers" => ["Authorization" => Session::get("token")],

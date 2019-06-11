@@ -230,9 +230,7 @@
 									         	</span>
 									        </div>
                                             <button class="btn btn-info btn-block">Book</button>
-                                        </form>
-
-                                         
+                                        </form>                                    
 									</td>
 								</tr>
 							@endif

@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-	<div class="row">
+<div class="row mx-3">
 	{{-- VEHICLE INVENTORY --}}
-		<div class="col-sm-12 col-lg-10">
+		<div class="col-sm-12 col-lg-8">
             {{-- VEHICLE ACTIVE FLEET --}}
-			<div class="accordion" id="transactionSummary_accordion">
+			<div class="accordion" id="transactionSummary_accordion mx-3">
                 <div class="align-middle" id="display_transactionummary">
                     <button class="btn btn-success btn-lg btn-block" type="button" data-toggle="collapse" data-target="#collapsetransactionsummary" aria-expanded="true" aria-controls="collapsetransactionsummary">
                         <h4>MLN Express Active Fleet</h4>
@@ -25,6 +24,14 @@
                                 <th class="align-middle">Condition</th>
                             </thead>
                             <tbody>
+                                <col width="200">
+                                <col width="100">
+                                <col width="130">
+                                <col width="130">
+                                <col width="130">
+                                <col width="130">
+                                <col width="130">
+
                             @foreach($vehicles as $vehicle)
                                 @if($vehicle->isServiceable == true)
                                     <tr>                                          
@@ -107,6 +114,13 @@
 
                         </thead>
                         <tbody>
+                                <col width="200">
+                                <col width="100">
+                                <col width="130">
+                                <col width="130">
+                                <col width="130">
+                                <col width="130">
+                                <col width="130">
                         @foreach($vehicles as $vehicle)
                             @if($vehicle->isServiceable !== true)
                                 <tr>                                          
@@ -209,8 +223,7 @@
                         @csrf
                             <div class="row">
                                 <div class="md-form col-lg-8 ">
-{{--                                     <label for="vehicleId">Vehicle</label>
- --}}                                    <select name="vehicleId" class="form-control validate">
+                                  <select name="vehicleId" class="form-control validate">
                                         <option value="" disabled selected>Assign Vehicle</option>
                                         @foreach($vehicles as $vehicle)
                                             <option class="" value="{{$vehicle->_id}}" >
@@ -228,13 +241,11 @@
                             </div>
                            
                             <div class="md-form my-2">
-                              {{-- <label data-error="wrong" data-success="right" for="price">Price per Ticket</label> --}}
                               <input type="number" id="price" name="price" class="form-control validate" placeholder="Ticket Price">
 
                             </div>
                             <div class="md-form my-2">
-     {{--                            <label data-error="wrong" data-success="right" for="origin">Origin</label>
-                                <input type="text" id="origin" name="origin" class="form-control validate"> --}}
+  
                                 <select name="origin" class="form-control validate">
                                     <option value="" disabled selected>Origin</option>
                                     @foreach($locations as $location)
