@@ -94,10 +94,9 @@ class CategoryController extends Controller
 
         $response = $client->request("DELETE", "/admin/categories/".$id, [
             "headers" => ["Authorization" =>Session::get("token")],
-            "json" => [
-                "name" => $request->name,
-            ]
         ]);
+
+        
 
         return redirect("/options");    }
 }
