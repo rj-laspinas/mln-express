@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row mx-3">
-		<div class="col-sm-12 col-lg-4">
+		<div class="col-sm-12 col-lg-5">
             {{-- LOCATIONS --}}
 			<div class="accordion" id="transactionSummary_accordion mx-3">
                 <div class="align-middle" id="display_transactionummary">
@@ -24,7 +24,7 @@
                             <tbody>
                                 <col width="200">
                                 <col width="130">
-                                <col width="130">
+                                <col width="200">
                                 <col width="130">
 
                             @foreach($locations as $location)
@@ -49,7 +49,7 @@
             </div>
             <br>
         </div>
-        <div class="col-sm-12 col-lg-4">
+        <div class="col-sm-12 col-lg-3">
 
             {{-- CATEGORIES --}}
             <div class="accordion" id="transactionSummary2_accordion">
