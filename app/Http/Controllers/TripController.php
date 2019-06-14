@@ -111,14 +111,12 @@ class TripController extends Controller
     {
          $rules = array(
             "vehicleId" => "required",
-            "price" => "required|numeric",
+            "price" => "required",
             "origin" => "required",
             "destination" => "required",
             "startDate" => "required",
-            "endDate" => "required",
+            "endDate" => "required"
         );
-
-        // dd($request);
         $this->validate($request, $rules);
 
         $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
@@ -134,6 +132,7 @@ class TripController extends Controller
                 "endDate" => $request->endDate
             ]
         ]);
+
 
         $result = json_decode($response->getBody());
         
@@ -156,12 +155,12 @@ class TripController extends Controller
 
         $result = json_decode($response->getBody());
 
-        $vehicle = $result->vehicle;
+        $tripVehicle = $result->vehicle;
         $trip = $result->trip;
         $vehicles= $result->fleet;
 
 
-        return view("admin.trip_edit", compact('vehicles','vehicle', 'trip'));    
+        return view("admin.trip_edit", compact('vehicles','tripVehicle', 'trip'));    
     }
 
     /**
@@ -197,7 +196,7 @@ class TripController extends Controller
 
         $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
-        $response = $client->request("PUT", "/admin/trips", [
+        $response = $client->request("PUT", "/admin/trips/".$id, [
             "headers" => ["Authorization" => Session::get("token")],
             "json" => [
                 "vehicleId" => $request->vehicleId,
@@ -222,7 +221,15 @@ class TripController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
+
+        $response = $client->request("DELETE", "/admin/trips/".$id, [
+            "headers" => ["Authorization" => Session::get("token")],
+        ]);
+
+        $result = json_decode($response->getBody());
+        
+        return redirect("/trips");
     }
 }
 

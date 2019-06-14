@@ -5,7 +5,7 @@
 
 
 	<div class="row mx-3">
-		<div class="col-lg-7 col-sm-12">
+		<div class="col-lg-9 col-sm-12">
 			{{-- PENDING TRIPS --}}
 				<div class="accordion" id="genericAccordion_01">
 	                <div class="align-middle" id="DisplayGenericAccordion_01">
@@ -21,6 +21,7 @@
 			                    <th class="align-middle">Arrival</th>
 			                    <th class="align-middle">Ticket Price</th>
 			                    <th class="align-middle">Seats left</th>
+                                <th class="align-middle">Vehicle Details</th>
 			                    <th class="align-middle">Action</th>
 							</thead>
 							<tbody>
@@ -29,15 +30,25 @@
                                 <col width="200">
                                 <col width="130">
                                 <col width="130">
+                                <col width="200">
+                                <col width="130">
 
 								@foreach($trips as $trip)
 									@if($trip->isCompleted == false && $trip->isCancelled == false)
 										<tr>
-											<td>{{$trip->origin}}-{{$trip->destination}}</td>
+											<td>{{$trip->origin}} - {{$trip->destination}}</td>
 											<td>{{Carbon\Carbon::parse($trip->startDate)->format('m-d-Y h:m:s')}}</td>
 											<td>{{Carbon\Carbon::parse($trip->endDate)->format('m-d-Y h:m:s')}}</td>
 											<td>{{$trip->price}}</td>
 											<td>{{$trip->seats}}</td>
+                                            <td>
+                                                @foreach($vehicles as $vehicle)
+                                                    @if($trip->vehicleId == $vehicle->_id)
+                                                        {{$vehicle->vehicleModel}} - <b>{{$vehicle->plate}}</b> <br>
+                                                        {{$vehicle->category}} Class -  {{$vehicle->vehicleType}}
+                                                    @endif
+                                                @endforeach
+                                            </td>
 											<td>
 												<form method="POST" action="/trips/{{$trip->_id}}">
 	                                                @csrf
@@ -61,11 +72,11 @@
 			{{-- COMPLETED TRIPS --}}
 				<div class="accordion" id="genericAccordion_02">
 	                <div class="align-middle" id="DisplayGenericAccordion_02">
-	                    <button class="btn btn-outline-info btn-lg btn-block" type="button" data-toggle="collapse" data-target="#collapsePart_02" aria-expanded="true" aria-controls="collapsePart_02">
+	                    <button class="btn btn-outline-info btn-lg btn-block" type="button" data-toggle="collapse" data-target="#collapsePart_02" aria-expanded="false" aria-controls="collapsePart_02">
 	                        <h4>Completed Trips</h4>
 	                    </button>
 	                </div>
-	                <div id="collapsePart_02" class="collapse show px-0" aria-labelledby="DisplayGenericAccordion_02" data-parent="#genericAccordion_02">
+	                <div id="collapsePart_02" class="collapse  px-0" aria-labelledby="DisplayGenericAccordion_02" data-parent="#genericAccordion_02">
 						<table class="table table-hover table-responsive">
 							<thead>
 								<th class="align-middle">Route</th>
@@ -73,6 +84,7 @@
 			                    <th class="align-middle">Arrival</th>
 			                    <th class="align-middle">Ticket Price</th>
 			                    <th class="align-middle">Seats left</th>
+                                <th class="align-middle">Vehicle Details</th>
 			                    <th class="align-middle">Action</th>
 							</thead>
 							<tbody>
@@ -81,22 +93,28 @@
                                 <col width="200">
                                 <col width="130">
                                 <col width="130">
+                                <col width="200">
+                                <col width="130">
 								@foreach($trips as $trip)
 									@if($trip->isCompleted == true && $trip->isCancelled == false)
 										<tr>
-											<td>{{$trip->origin}}-{{$trip->destination}}</td>
+											<td>{{$trip->origin}} - {{$trip->destination}}</td>
                                             <td>{{Carbon\Carbon::parse($trip->startDate)->format('m-d-Y h:m:s')}}</td>
                                             <td>{{Carbon\Carbon::parse($trip->endDate)->format('m-d-Y h:m:s')}}</td>
 											<td>{{$trip->price}}</td>
 											<td>{{$trip->seats}}</td>
+                                            <td>
+                                                @foreach($vehicles as $vehicle)
+                                                    @if($trip->vehicleId == $vehicle->_id)
+                                                        {{$vehicle->vehicleModel}} - <b>{{$vehicle->plate}}</b> <br>
+                                                        {{$vehicle->category}} Class -  {{$vehicle->vehicleType}}
+                                                    @endif
+                                                @endforeach
+                                            </td>
 											<td>
-												<form method="POST" action="/trip/{{$trip->_id}}">
-	                                                @csrf
-	                                                @method('DELETE')
-	                                                <button class="btn btn-danger btn-block">Cancel</button>
-	                                            </form>
-	                                            <a href="/trip/{{$trip->_id}}">
-	                                            	<button class="btn btn-info btn-block">Edit</button>
+
+	                                            <a href="/trips/{{$trip->_id}}">
+	                                            	<button class="btn btn-info btn-block">Copy Trip</button>
 	                                            </a>
 	                                             
 											</td>
@@ -111,25 +129,28 @@
 			{{-- CANCELLED TRIPS --}}
 	      		<div class="accordion" id="genericAccordion_03">
 	                <div class="align-middle" id="DisplayGenericAccordion_03">
-	                    <button class="btn btn-outline-danger btn-lg btn-block" type="button" data-toggle="collapse" data-target="#collapsePart_03" aria-expanded="true" aria-controls="collapsePart_03">
+	                    <button class="btn btn-outline-danger btn-lg btn-block" type="button" data-toggle="collapse" data-target="#collapsePart_03" aria-expanded="false" aria-controls="collapsePart_03">
 	                        <h4>Cancelled</h4>
 	                    </button>
 	                </div>
-	                <div id="collapsePart_03" class="collapse show px-0" aria-labelledby="DisplayGenericAccordion_03" data-parent="#genericAccordion_03">
+	                <div id="collapsePart_03" class="collapse px-0" aria-labelledby="DisplayGenericAccordion_03" data-parent="#genericAccordion_03">
 						<table class="table table-hover table-responsive">
 							<thead>
-								<th class="align-middle">Route</th>
-			                    <th class="align-middle">Departure</th>
-			                    <th class="align-middle">Arrival</th>
-			                    <th class="align-middle">Ticket Price</th>
-			                    <th class="align-middle">Seats left</th>
-			                    <th class="align-middle">Action</th>
-							</thead>
-							<tbody>
+                                <th class="align-middle">Route</th>
+                                <th class="align-middle">Departure</th>
+                                <th class="align-middle">Arrival</th>
+                                <th class="align-middle">Ticket Price</th>
+                                <th class="align-middle">Seats left</th>
+                                <th class="align-middle">Vehicle Details</th>
+                                <th class="align-middle">Action</th>
+                            </thead>
+                            <tbody>
                                 <col width="200">
                                 <col width="200">
                                 <col width="200">
                                 <col width="130">
+                                <col width="130">
+                                <col width="200">
                                 <col width="130">
 								@foreach($trips as $trip)
 									@if($trip->isCancelled == true)
@@ -139,14 +160,18 @@
 											<td>{{Carbon\Carbon::parse($trip->endDate)->format('m-d-Y h:m:s')}}</td>
 											<td>{{$trip->price}}</td>
 											<td>{{$trip->seats}}</td>
+                                            <td>
+                                                @foreach($vehicles as $vehicle)
+                                                    @if($trip->vehicleId == $vehicle->_id)
+                                                        {{$vehicle->vehicleModel}} - <b>{{$vehicle->plate}}</b> <br>
+                                                        {{$vehicle->category}} Class -  {{$vehicle->vehicleType}}
+                                                    @endif
+                                                @endforeach
+                                            </td>
 											<td>
-												<form method="POST" action="/trip/{{$trip->_id}}">
-	                                                @csrf
-	                                                @method('DELETE')
-	                                                <button class="btn btn-danger btn-block">Cancel</button>
-	                                            </form>
-	                                            <a href="/trip/{{$trip->_id}}">
-	                                            	<button class="btn btn-info btn-block">Edit</button>
+
+	                                            <a href="/trips/{{$trip->_id}}">
+	                                            	<button class="btn btn-info btn-block">Copy Trip</button>
 	                                            </a>
 	                                             
 											</td>

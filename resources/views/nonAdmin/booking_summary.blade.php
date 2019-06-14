@@ -56,7 +56,7 @@
 	                </div>
 	                <div class="md-form my-2">
 	                	<label data-error="wrong" data-success="right" for="startDate">Total Fare (Php)</label>
-                      <input id="" type="number" class="form-control" name="" value="{{$amount}}" required autofocus disabled>
+                      <input id="" type="text" class="form-control" name="" value="{{$amount}}" required autofocus disabled>
                
                     </div>
 
@@ -67,7 +67,7 @@
 			    	<input type="hidden" name="price" class="form-control" value="{{$price}}">
 
 	                <div class="modal-footer d-flex justify-content-left">
-                    	<button type="submit" class="btn btn-info btn-block">Proceed and Pay with Stripe</button>
+                    	<button type="submit" class="btn btn-info btn-block">Proceed to Stripe Payment</button>
                 	</div>
 
 	            </form>

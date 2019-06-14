@@ -62,3 +62,4 @@ Route::get("/bookings/{id}","BookingController@show");
 // Route::resource("bookings","BookingController");
 Route::get("/booking/search", "BookingController@search");
 Route::resource("users","UserController");
+Route::delete("/users/delete/{id}","UserController@destroy");

@@ -13,7 +13,7 @@ class BookingController extends Controller
         $tripId = $request->tripId;
         $quantity = $request->quantity;
         $price = $request->price;
-        $amount = "₱". $quantity * $price;
+        $amount = "₱ ". $quantity * $price;
 
         Session::put("tripId", $tripId);
         Session::put("quantity", $quantity);
@@ -22,17 +22,25 @@ class BookingController extends Controller
 
         $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
-        if(Session::get("user") !== null){        
+        if(Session::get("user") !== null){ 
 
-            $response = $client->request("GET", "/guest/trips/".$tripId, [
-                "headers" => ["Authorization" => Session::get("token")],
-            ]);
+            if(Session::("user")->isAdmin == false){
+                $response = $client->request("GET", "/guest/trips/".$tripId, [
+                    "headers" => ["Authorization" => Session::get("token")],
+                ]);
 
-            $result = json_decode($response->getBody());
-            $vehicle = $result->vehicle;
-            $trip = $result->trip;
+                $result = json_decode($response->getBody());
+                $vehicle = $result->vehicle;
+                $trip = $result->trip;
 
-        return view('nonAdmin.booking_summary', compact('tripId', 'quantity', 'price', 'amount', 'vehicle', 'trip'));
+            return view('nonAdmin.booking_summary', compact('tripId', 'quantity', 'price', 'amount', 'vehicle', 'trip'));
+
+            } else {
+
+                return redirect("/");
+
+            }
+
         /*REDIRECT TO GUEST DETAILS PAGE*/
         } else {
 
@@ -119,6 +127,7 @@ class BookingController extends Controller
      */
     public function index()
     {
+        
         $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
 
         $response = $client->request("GET", "/nonAdmin/bookings", [
@@ -127,7 +136,6 @@ class BookingController extends Controller
 
 
         $result = json_decode($response->getBody());
-        // dd($result);
         $vehicles = $result->vehicles;
         $trips = $result->trips;
         $bookings = $result->bookings;

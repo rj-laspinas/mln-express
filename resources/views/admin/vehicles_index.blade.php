@@ -4,7 +4,7 @@
 <div class="row mx-3">
 	{{-- VEHICLE INVENTORY --}}
 		<div class="col-sm-12 col-lg-8">
-            {{-- VEHICLE ACTIVE FLEET --}}
+        {{-- VEHICLE ACTIVE FLEET --}}
 			<div class="accordion" id="transactionSummary_accordion mx-3">
                 <div class="align-middle" id="display_transactionummary">
                     <button class="btn btn-success btn-lg btn-block" type="button" data-toggle="collapse" data-target="#collapsetransactionsummary" aria-expanded="true" aria-controls="collapsetransactionsummary">
@@ -93,7 +93,7 @@
                 </div>
             </div>
             <br>
-            {{-- BROKEN VEHICLES --}}
+        {{-- BROKEN VEHICLES --}}
             <div class="accordion" id="transactionSummary2_accordion">
                 <div class="align-middle" id="display_transactionummary2">
                     <button class="btn btn-danger btn-lg btn-block" type="button" data-toggle="collapse" data-target="#collapsetransactionsummary2" aria-expanded="true" aria-controls="collapsetransactionsummary2">
@@ -278,7 +278,7 @@
                               <input type="datetime-local" id="startDate" name="startDate" class="form-control validate mx-2" placeholder="Start of Trip">
                             </div>
                             <div class="md-form my-2 form-inline">
-                              <label data-error="wron g" data-success="right" for="endDate">End Date</label>
+                              <label data-error="wrong" data-success="right" for="endDate">End Date</label>
                               <input type="datetime-local" id="endDate" name="endDate" class="form-control validate mx-2" placeholder="End of Trip">
                             </div>
 
