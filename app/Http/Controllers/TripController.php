@@ -159,7 +159,6 @@ class TripController extends Controller
         $trip = $result->trip;
         $vehicles= $result->fleet;
 
-
         return view("admin.trip_edit", compact('vehicles','tripVehicle', 'trip'));    
     }
 

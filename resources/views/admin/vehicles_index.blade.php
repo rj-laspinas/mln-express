@@ -282,7 +282,6 @@
                               <input type="datetime-local" id="endDate" name="endDate" class="form-control validate mx-2" placeholder="End of Trip">
                             </div>
 
-
                             <div class="modal-footer d-flex justify-content-center">
                                 <button type="submit" class="btn btn-success">Add Trip Schedule</button>
                             </div>
