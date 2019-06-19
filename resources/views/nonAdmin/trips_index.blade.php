@@ -18,7 +18,7 @@
 				<div class="col-lg-3">
 					<h5><b>{{$origin}}</b></h5>
 					<h5><b>{{$destination}}</b></h5>
-					<h5><b>{{$startDate}}</b></h5>
+					<h5><b>{{Carbon\Carbon::parse($trip->startDate)->format('M-d-y')}}</b></h5>
 				</div>
 			</div>
 		</div>

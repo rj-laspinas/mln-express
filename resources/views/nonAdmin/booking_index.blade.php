@@ -27,15 +27,15 @@
 										<tr>
 											<td>
 												<p>Booking Ref. No :  <b>{{Str::limit($booking->_id, 7)}}</b></p>
-												<p>Booking date	: <b>{{Carbon\Carbon::parse($booking->bookingDate)->format('m-d-y h:m:s')}}</b></p>
+												<p>Booking date	: <b>{{Carbon\Carbon::parse($booking->bookingDate)->format('M-d-y h:i:s A')}}</b></p>
 											</td>
 											
 											@foreach($trips as $trip)
 												@if($booking->tripId == $trip->_id)
 												<td>
 													<p>Route : <b>{{$trip->origin}} - {{$trip->destination}}</b></p>
-													<p>Departure Date/Time: <b>{{Carbon\Carbon::parse($trip->startDate)->format('m-d-y h:m:s')}}</b></p>
-													<p>Arrival Date/Time: <b>{{Carbon\Carbon::parse($trip->endDate)->format('m-d-y h:m:s')}}</b></p>
+													<p>Departure Date/Time: <b>{{Carbon\Carbon::parse($trip->startDate)->format('M-d-y h:i:s A')}}</b></p>
+													<p>Arrival Date/Time: <b>{{Carbon\Carbon::parse($trip->endDate)->format('M-d-y h:i:s A')}}</b></p>
 												</td>
 												<td>
 													@foreach($vehicles as $vehicle)
@@ -110,15 +110,15 @@
 										<tr>
 											<td>
 												<p>Booking Ref. No :  <b>{{Str::limit($booking->_id, 7)}}</b></p>
-												<p>Booking date	: <b>{{Carbon\Carbon::parse($booking->bookingDate)->format('m-d-y h:m:s')}}</b></p>
+												<p>Booking date	: <b>{{Carbon\Carbon::parse($booking->bookingDate)->format('M-d-y h:i:s A')}}</b></p>
 											</td>
 											
 											@foreach($trips as $trip)
 												@if($booking->tripId == $trip->_id)
 												<td>
 													<p>Route : <b>{{$trip->origin}} - {{$trip->destination}}</b></p>
-													<p>Departure Date/Time: <b>{{Carbon\Carbon::parse($trip->startDate)->format('m-d-y h:m:s')}}</b></p>
-													<p>Arrival Date/Time: <b>{{Carbon\Carbon::parse($trip->endDate)->format('m-d-y h:m:s')}}</b></p>
+													<p>Departure Date/Time: <b>{{Carbon\Carbon::parse($trip->startDate)->format('M-d-y h:i:s A')}}</b></p>
+													<p>Arrival Date/Time: <b>{{Carbon\Carbon::parse($trip->endDate)->format('M-d-y h:i:s A')}}</b></p>
 												</td>
 												<td>
 													@foreach($vehicles as $vehicle)

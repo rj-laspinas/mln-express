@@ -37,8 +37,14 @@
 									@if($trip->isCompleted == false && $trip->isCancelled == false)
 										<tr>
 											<td>{{$trip->origin}} - {{$trip->destination}}</td>
-											<td>{{Carbon\Carbon::parse($trip->startDate)->format('m-d-Y h:m:s')}}</td>
-											<td>{{Carbon\Carbon::parse($trip->endDate)->format('m-d-Y h:m:s')}}</td>
+											<td>
+                                                {{Carbon\Carbon::parse($trip->startDate)->format('M-d-Y')}}<br>
+                                                <b>{{Carbon\Carbon::parse($trip->startDate)->format(' h:i:s A')}}</b>
+                                            </td>
+											<td>
+                                                {{Carbon\Carbon::parse($trip->endDate)->format('M-d-Y')}}<br>
+                                                <b>{{Carbon\Carbon::parse($trip->endDate)->format(' h:i:s A')}}</b>
+                                            </td>
 											<td>{{$trip->price}}</td>
 											<td>{{$trip->seats}}</td>
                                             <td>
@@ -99,8 +105,14 @@
 									@if($trip->isCompleted == true && $trip->isCancelled == false)
 										<tr>
 											<td>{{$trip->origin}} - {{$trip->destination}}</td>
-                                            <td>{{Carbon\Carbon::parse($trip->startDate)->format('m-d-Y h:m:s')}}</td>
-                                            <td>{{Carbon\Carbon::parse($trip->endDate)->format('m-d-Y h:m:s')}}</td>
+                                            <td>
+                                                {{Carbon\Carbon::parse($trip->startDate)->format('M-d-Y')}}<br>
+                                                <b>{{Carbon\Carbon::parse($trip->startDate)->format(' h:i:s A')}}</b>
+                                            </td>
+                                            <td>
+                                                {{Carbon\Carbon::parse($trip->endDate)->format('M-d-Y')}}<br>
+                                                <b>{{Carbon\Carbon::parse($trip->endDate)->format(' h:i:s A')}}</b>
+                                            </td>
 											<td>{{$trip->price}}</td>
 											<td>{{$trip->seats}}</td>
                                             <td>
@@ -156,8 +168,14 @@
 									@if($trip->isCancelled == true)
 										<tr>
 											<td>{{$trip->origin}}-{{$trip->destination}}</td>
-											<td>{{Carbon\Carbon::parse($trip->startDate)->format('m-d-Y h:m:s')}}</td>
-											<td>{{Carbon\Carbon::parse($trip->endDate)->format('m-d-Y h:m:s')}}</td>
+                                            <td>
+                                                {{Carbon\Carbon::parse($trip->startDate)->format('M-d-Y')}}<br>
+                                                <b>{{Carbon\Carbon::parse($trip->startDate)->format(' h:i:s A')}}</b>
+                                            </td>
+                                            <td>
+                                                {{Carbon\Carbon::parse($trip->endDate)->format('M-d-Y')}}<br>
+                                                <b>{{Carbon\Carbon::parse($trip->endDate)->format(' h:i:s A')}}</b>
+                                            </td>
 											<td>{{$trip->price}}</td>
 											<td>{{$trip->seats}}</td>
                                             <td>

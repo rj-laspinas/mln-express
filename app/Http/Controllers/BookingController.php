@@ -24,7 +24,7 @@ class BookingController extends Controller
 
         if(Session::get("user") !== null){ 
 
-            if(Session::("user")->isAdmin == false){
+            if(Session::get("user")->isAdmin == false){
                 $response = $client->request("GET", "/guest/trips/".$tripId, [
                     "headers" => ["Authorization" => Session::get("token")],
                 ]);
@@ -128,7 +128,8 @@ class BookingController extends Controller
     public function index()
     {
         
-        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
+        // $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
+        $client = new Client(["base_uri" => "localhost:3000"]);
 
         $response = $client->request("GET", "/nonAdmin/bookings", [
             "headers" => ["Authorization" => Session::get("token")],
@@ -286,5 +287,23 @@ class BookingController extends Controller
 
 
         return redirect('/bookings');
+    }
+
+
+    public function adminIndex()
+    {
+        $client = new Client(["base_uri" => "https://evening-tundra-69683.herokuapp.com"]);
+
+        $response = $client->request("GET", "/admin/bookings", [
+            "headers" => ["Authorization" => Session::get("token")],
+        ]);
+
+
+        $result = json_decode($response->getBody());
+        $vehicles = $result->vehicles;
+        $trips = $result->trips;
+        $bookings = $result->bookings;
+
+        return view("admin.booking_index", compact('vehicles', 'trips', 'bookings'));
     }
 }

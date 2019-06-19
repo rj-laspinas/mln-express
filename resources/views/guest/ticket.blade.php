@@ -49,8 +49,8 @@
 						<pre><p>Trip Class 		: 	<b>{{$vehicle->category}}</b></p></pre>
 						<pre><p>Origin 			:	<b>{{$trip->origin}}</b></p></pre>
 						<pre><p>Destination 		: 	<b>{{$trip->destination}}</b></p></pre>
-						<pre><p>Departure Date		: 	<b>{{Carbon\Carbon::parse($trip->startDate)->format('m-d-y')}}</b></p></pre>
-						<pre><p>Departure Time 		: 	<b>{{Carbon\Carbon::parse($trip->startDate)->format('h:m:s')}}</b></p></pre>
+						<pre><p>Departure Date		: 	<b>{{Carbon\Carbon::parse($trip->startDate)->format('M-d-y')}}</b></p></pre>
+						<pre><p>Departure Time 		: 	<b>{{Carbon\Carbon::parse($trip->startDate)->format('h:i:s A')}}</b></p></pre>
 					</div>
 				{{-- </div> --}}
 				<br>

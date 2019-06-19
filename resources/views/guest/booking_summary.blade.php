@@ -38,7 +38,7 @@
 	                </div>
 	                <div class="md-form my-2">
 	                	<label data-error="wrong" data-success="right" for="startDate">Date/Time of Departure</label>
-                      <input id="" type="text" class="form-control" name="" value="{{Carbon\Carbon::parse($trip->startDate)->format('m-d-Y h:m:s')}}" required autofocus disabled>
+                      <input id="" type="text" class="form-control" name="" value="{{Carbon\Carbon::parse($trip->startDate)->format('M-d-Y h:i:s A')}}" required autofocus disabled>
                
                     </div>
 
